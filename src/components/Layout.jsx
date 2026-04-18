@@ -5,6 +5,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { useT } from "../i18n/useT";
 import { searchData } from "../search/searchData";
 import { filterSearchResults } from "../search/searchUtils";
+import logo from "../assets/logo.png";
 
 export default function Layout({
   children,
@@ -108,9 +109,7 @@ export default function Layout({
           onChange={(e) => updateSearch(e.target.value)}
           onFocus={() => setIsSearchOpen(true)}
           placeholder={t("common.searchPlaceholder")}
-          className="w-full py-3 px-5 pr-11 border border-slate-300 rounded-full bg-white text-sm text-slate-700 shadow-sm placeholder:text-slate-400
-          focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500
-          hover:border-teal-400 transition"
+          className="w-full py-3 px-5 pr-11 border border-slate-300 rounded-full bg-white text-sm text-slate-700 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 transition"
         />
 
         {searchQuery && (
@@ -118,6 +117,7 @@ export default function Layout({
             type="button"
             onClick={clearSearch}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+            aria-label={language === "sw" ? "Futa utafutaji" : "Clear search"}
           >
             <X size={17} />
           </button>
@@ -159,20 +159,23 @@ export default function Layout({
   return (
     <div className="min-h-screen flex flex-col bg-clovenet-bg text-slate-900">
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-sm shadow-sm">
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-3.5">
           <div className="flex items-center justify-between gap-3 md:gap-6">
             <button
               type="button"
               onClick={() => navigate("/")}
-              className="shrink-0 cursor-pointer select-none"
+              className="shrink-0 cursor-pointer select-none group"
+              aria-label="Go to home page"
             >
-              <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-teal-600 hover:text-teal-700 transition-colors">
-                {t("layout.brand")}
-              </h1>
+              <img
+                src={logo}
+                alt="CloveNet Hub Logo"
+                className="h-9 sm:h-10 md:h-12 lg:h-14 w-auto object-contain block"
+              />
             </button>
 
-            <div className="hidden md:flex flex-1 justify-center">
-              <div className="w-full max-w-md">
+            <div className="hidden md:flex flex-1 justify-center min-w-0">
+              <div className="w-full max-w-md lg:max-w-lg">
                 {renderSearchBox(searchDesktopRef)}
               </div>
             </div>
@@ -181,6 +184,9 @@ export default function Layout({
               type="button"
               onClick={toggleLanguage}
               className="shrink-0 text-sm font-semibold text-slate-600 hover:text-teal-600 cursor-pointer transition-colors"
+              aria-label={
+                language === "en" ? "Switch to Swahili" : "Switch to English"
+              }
             >
               {language === "en" ? "SW" : "EN"}
             </button>
@@ -264,8 +270,7 @@ export default function Layout({
                 href={feedbackFormLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 bg-slate-700 rounded-lg hover:bg-slate-600 active:scale-[0.98]
-                transition text-sm text-white cursor-pointer inline-flex items-center"
+                className="px-4 py-2.5 bg-slate-700 rounded-lg hover:bg-slate-600 active:scale-[0.98] transition text-sm text-white cursor-pointer inline-flex items-center"
               >
                 {t("layout.feedback")}
               </a>
@@ -274,8 +279,7 @@ export default function Layout({
                 href="https://wa.me/255776378529"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 bg-teal-600 rounded-lg hover:bg-teal-700 active:scale-[0.98]
-                transition text-sm text-white cursor-pointer"
+                className="px-4 py-2.5 bg-teal-600 rounded-lg hover:bg-teal-700 active:scale-[0.98] transition text-sm text-white cursor-pointer"
               >
                 {t("layout.whatsapp")}
               </a>
