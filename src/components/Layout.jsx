@@ -237,7 +237,7 @@ export default function Layout({
       )}
 
       {/* ══════════ MAIN ══════════ */}
-      <main className="flex-1 py-8 sm:py-10 lg:py-12">
+      <main className="flex-1 pt-5 pb-10">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
           {children}
         </div>

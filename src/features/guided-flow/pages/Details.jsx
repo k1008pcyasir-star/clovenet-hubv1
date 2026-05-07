@@ -34,7 +34,7 @@ export default function Details() {
   // ✅ IMEONDOLEWA: wrapper wa nje uliokuwa na min-h-screen bg-clovenet-bg py-6 px-4
   // Layout tayari inashughulikia padding na background
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="max-w-3xl mx-auto space-y-6">
 
       {/* Header */}
       <div className="text-center sm:text-left">
