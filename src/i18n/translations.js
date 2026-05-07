@@ -9,6 +9,7 @@ export const translations = {
       next: "Next",
       continue: "Continue",
       start: "Start",
+      backToTools: "Back to Tools",
     },
 
     layout: {
@@ -222,6 +223,7 @@ export const translations = {
       download: "Download Photo",
       alt: "Resized Passport",
       errorMessage: "An error occurred while processing the image.",
+      sizeNote: "The photo will be resized to 600x600 px — suitable for passport and ID photos.",
     },
 
     mergePdf: {
@@ -268,6 +270,11 @@ export const translations = {
       download: "Download PDF",
 
       errorMessage: "An error occurred while compressing the PDF.",
+      disclaimer: "This tool works best with text-heavy PDFs. PDFs with many images or scanned documents may not reduce significantly in size.",
+      before: "Before",
+      after: "After",
+      saved: "You saved",
+      noChange: "File size did not change significantly. This PDF may already be optimized.",
     },
 
     interviewDashboard: {
@@ -301,6 +308,20 @@ export const translations = {
       back: "Back to Subcategories",
     },
 
+    practiceEngine: {
+      filterLabel: "Filter by section",
+      all: "All",
+      question: "Question",
+      of: "of",
+      complete: "Complete",
+      showGuide: "Show Professional Guide",
+      guideTitle: "Professional Guide",
+      showAnswer: "Show Sample Answer",
+      answerTitle: "Sample Answer",
+      previous: "Previous",
+      next: "Next Question",
+    },
+
     learnDashboard: {
       badge: "Digital Skills Learning",
       title: "Learn Digital Skills",
@@ -319,8 +340,6 @@ export const translations = {
       docDesc:
         "Learn how to prepare, resize and compress documents for applications.",
 
-      safetyTitle: "Digital Safety",
-      safetyDesc: "Learn to protect your phone, accounts, and data from theft and online scams.",
       comingSoon: "Coming soon",
     },
   },
@@ -335,6 +354,7 @@ export const translations = {
       next: "Endelea",
       continue: "Endelea",
       start: "Anza",
+      backToTools: "Rudi kwenye Zana",
     },
 
     layout: {
@@ -551,6 +571,7 @@ export const translations = {
       download: "Pakua Picha",
       alt: "Picha ya Passport Iliyorekebishwa",
       errorMessage: "Kuna tatizo limejitokeza wakati wa kusoma picha.",
+      sizeNote: "Picha itabadilishwa kuwa 600x600 px - inafaa kwa picha za passport na kitambulisho.",
     },
 
     mergePdf: {
@@ -597,6 +618,11 @@ export const translations = {
       download: "Pakua PDF",
 
       errorMessage: "Tatizo limetokea wakati wa ku-compress PDF.",
+      disclaimer: "Zana hii inafanya kazi vizuri kwa PDF za maandishi. PDF zenye picha nyingi au zilizoscanniwa zinaweza kutobadilika ukubwa wake sana.",
+      before: "Kabla",
+      after: "Baada",
+      saved: "Umehifadhi",
+      noChange: "Ukubwa wa faili haukubadilika sana. PDF hii inaweza tayari kuwa imeboreshwa.",
     },
 
     interviewDashboard: {
@@ -630,6 +656,20 @@ export const translations = {
       back: "Rudi kwenye Subcategories",
     },
 
+    practiceEngine: {
+      filterLabel: "Chuja kwa sehemu",
+      all: "Zote",
+      question: "Swali",
+      of: "kati ya",
+      complete: "Imekamilika",
+      showGuide: "Ona Mwongozo wa Kitaalamu",
+      guideTitle: "Mwongozo wa Kitaalamu",
+      showAnswer: "Ona Jibu la Mfano",
+      answerTitle: "Jibu la Mfano",
+      previous: "Iliyopita",
+      next: "Swali Lijalo",
+    },
+
     learnDashboard: {
       badge: "Kujifunza Ujuzi wa Kidijitali",
       title: "Jifunze Ujuzi wa Kidijitali",
@@ -648,8 +688,6 @@ export const translations = {
       docDesc:
         "Jifunze jinsi ya kuandaa, kurekebisha na kupunguza nyaraka kwa maombi.",
 
-      safetyTitle: "Usalama wa Kidigitali",
-      safetyDesc: "Jifunze kulinda simu yako, akaunti zako, na data yako dhidi ya wizi na udanganyifu wa mtandaoni.",
       comingSoon: "Inakuja hivi karibuni",
     },
   },
