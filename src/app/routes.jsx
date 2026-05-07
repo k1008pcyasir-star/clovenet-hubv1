@@ -31,8 +31,10 @@ import PracticePage from "../features/interview-engine/PracticePage";
 import LearnDashboard from "../features/learn/LearnDashboard";
 
 /* ================= EMAIL MODULE ================= */
-// Tunatumia EmailGuide pekee ambayo ipo kwenye folder uliyotaja
 import EmailGuide from "../features/learn/modules/email/EmailGuide";
+
+/* ================= SAFETY MODULE ================= */
+import SafetyGuide from "../features/learn/modules/safety/SafetyGuide";
 
 export default function AppRoutes() {
   return (
@@ -67,9 +69,11 @@ export default function AppRoutes() {
       {/* LEARN */}
       <Route path="/learn" element={<LearnDashboard />} />
 
-      {/* EMAIL GUIDE (Muundo Safi) */}
-      {/* Hakuna tena <Route index>, tunatumia path moja kwa EmailGuide */}
+      {/* EMAIL MODULE */}
       <Route path="/learn/email" element={<EmailGuide />} />
+
+      {/* SAFETY MODULE */}
+      <Route path="/learn/safety" element={<SafetyGuide />} />
 
       {/* FALLBACK */}
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -6,7 +6,8 @@ import {
   Settings,
   Gavel,
   Truck,
-  Users
+  Users,
+  Headphones
 } from "lucide-react";
 
 export const interviewCategories = [
@@ -90,6 +91,15 @@ export const interviewCategories = [
     icon: Users,
     subcategories: [
       { id: "core", title: "HR Practice" }
+    ]
+  },
+
+  {
+    id: "customer-care",
+    title: "Customer Care",
+    icon: Headphones,
+    subcategories: [
+      { id: "core", title: "Customer Care Practice" }
     ]
   }
 ];

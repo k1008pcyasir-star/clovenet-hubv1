@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Mail, FileText, File, Sparkles, Clock } from "lucide-react";
+import { Mail, FileText, File, Sparkles, Clock, ShieldCheck } from "lucide-react";
 import { useT } from "../../i18n/useT";
 
 export default function LearnDashboard() {
@@ -15,18 +15,25 @@ export default function LearnDashboard() {
       active: true,
     },
     {
+      title: t("learnDashboard.safetyTitle"),
+      description: t("learnDashboard.safetyDesc"),
+      icon: <ShieldCheck size={26} />,
+      path: "/learn/safety",
+      active: true,
+    },
+    {
       title: t("learnDashboard.cvTitle"),
       description: t("learnDashboard.cvDesc"),
       icon: <FileText size={26} />,
       active: false,
-      eta: "Julai 2026",
+      eta: "Agosti 2026",
     },
     {
       title: t("learnDashboard.docTitle"),
       description: t("learnDashboard.docDesc"),
       icon: <File size={26} />,
       active: false,
-      eta: "Agosti 2026",
+      eta: "Septemba 2026",
     },
   ];
 
@@ -56,7 +63,7 @@ export default function LearnDashboard() {
       </div>
 
       {/* Skills grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-5">
         {skills.map((skill, index) => (
           <div
             key={index}
@@ -68,16 +75,12 @@ export default function LearnDashboard() {
             }`}
           >
             <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${
-              skill.active
-                ? "bg-teal-50 text-teal-600"
-                : "bg-slate-100 text-slate-400"
+              skill.active ? "bg-teal-50 text-teal-600" : "bg-slate-100 text-slate-400"
             }`}>
               {skill.icon}
             </div>
 
-            <h3 className={`text-base font-bold mb-2 ${
-              skill.active ? "text-slate-900" : "text-slate-500"
-            }`}>
+            <h3 className={`text-base font-bold mb-2 ${skill.active ? "text-slate-900" : "text-slate-500"}`}>
               {skill.title}
             </h3>
 
@@ -96,9 +99,7 @@ export default function LearnDashboard() {
                 <Clock size={12} className="text-slate-400 shrink-0" />
                 <p className="text-xs text-slate-400 font-semibold">
                   {t("learnDashboard.comingSoon")}
-                  {skill.eta && (
-                    <span className="ml-1 text-teal-600 font-bold">— {skill.eta}</span>
-                  )}
+                  {skill.eta && <span className="ml-1 text-teal-600 font-bold">— {skill.eta}</span>}
                 </p>
               </div>
             )}

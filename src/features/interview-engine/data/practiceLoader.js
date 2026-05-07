@@ -31,6 +31,9 @@ import procurementModule from "./procurement";
 // ================= HUMAN RESOURCES =================
 import hrModule from "./hr";
 
+// ================= CUSTOMER CARE =================
+import customerCareData from "./customerCare";
+
 // ================= ENGINEERING =================
 import civil from "./engineering/civil";
 import electricalModule from "./engineering/electrical";
@@ -100,6 +103,10 @@ const practiceMap = {
 
   hr: {
     core: hr
+  },
+
+  "customer-care": {
+    core: customerCareData
   },
 
   engineering: {
