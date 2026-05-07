@@ -316,7 +316,7 @@ const QuizModule = ({ lang }) => {
 
   // ── Grade ────────────────────────────────────────────────────────────────
   const grade = pct >= 90 ? { label: isSw ? 'Bora Sana! 🏆' : 'Excellent! 🏆', color: '#10b981', sub: isSw ? 'Unastahili cheti!' : 'You\'ve mastered email!' }
-    : pct >= 70 ? { label: isSw ? 'Vizuri Sana! 🌟' : 'Great Job! 🌟', color: '#1a73e8', sub: isSw ? 'Karibu sana na ukamilifu' : 'Nearly perfect knowledge' }
+    : pct >= 70 ? { label: isSw ? 'Vizuri Sana! 🌟' : 'Great Job! 🌟', color: '#0d9488', sub: isSw ? 'Karibu sana na ukamilifu' : 'Nearly perfect knowledge' }
     : pct >= 50 ? { label: isSw ? 'Wastani 📚' : 'Good Start 📚', color: '#f59e0b', sub: isSw ? 'Rudia masomo na ujaribu tena' : 'Review and try again' }
     : { label: isSw ? 'Jaribu Tena 💪' : 'Keep Practicing 💪', color: '#ef4444', sub: isSw ? 'Usikatishwe tamaa — jifunze zaidi' : 'Don\'t give up — keep learning' };
 
@@ -363,10 +363,10 @@ const QuizModule = ({ lang }) => {
 
           <button onClick={() => setPhase('quiz')}
             style={{
-              background: '#1a73e8', color: '#fff', border: 'none',
+              background: '#0d9488', color: '#fff', border: 'none',
               borderRadius: 22, padding: '16px 40px',
               fontSize: 16, fontWeight: 900, cursor: 'pointer',
-              boxShadow: '0 8px 24px rgba(26,115,232,0.4)',
+              boxShadow: '0 8px 24px rgba(13,148,136,0.4)',
               width: '100%',
             }}>
             🚀 {isSw ? 'Anza Mtihani' : 'Start Quiz'}
@@ -396,14 +396,14 @@ const QuizModule = ({ lang }) => {
               <span style={{ fontSize: 12, fontWeight: 800, color: '#6b7280' }}>
                 {isSw ? `Swali ${current + 1} kati ya ${totalQ}` : `Question ${current + 1} of ${totalQ}`}
               </span>
-              <span style={{ fontSize: 12, fontWeight: 800, color: '#1a73e8' }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: '#0d9488' }}>
                 {streak > 0 ? `🔥 ×${streak}` : ''} {answered}/{totalQ}
               </span>
             </div>
             <div style={{ height: 8, background: '#e5e7eb', borderRadius: 4, overflow: 'hidden' }}>
               <div style={{
                 height: '100%', borderRadius: 4,
-                background: 'linear-gradient(90deg, #1a73e8, #34a853)',
+                background: 'linear-gradient(90deg, #0d9488, #34a853)',
                 width: `${((current + (isAnswered ? 1 : 0)) / totalQ) * 100}%`,
                 transition: 'width 0.4s ease',
               }} />
@@ -419,7 +419,7 @@ const QuizModule = ({ lang }) => {
             {/* Category tag */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
               <span style={{ fontSize: 18 }}>{q.icon}</span>
-              <span style={{ fontSize: 10, fontWeight: 900, color: '#1a73e8', letterSpacing: 1, textTransform: 'uppercase', background: '#e8f0fe', padding: '3px 10px', borderRadius: 20 }}>
+              <span style={{ fontSize: 10, fontWeight: 900, color: '#0d9488', letterSpacing: 1, textTransform: 'uppercase', background: '#f0fdfa', padding: '3px 10px', borderRadius: 20 }}>
                 {q.category}
               </span>
             </div>
@@ -427,7 +427,7 @@ const QuizModule = ({ lang }) => {
             {/* Question */}
             <div style={{ background: '#fff', borderRadius: 22, padding: '18px 18px 14px', border: '2px solid #e5e7eb', marginBottom: 12 }}>
               <p style={{ fontSize: 15, fontWeight: 800, color: '#111827', lineHeight: 1.5, margin: 0 }}>
-                <span style={{ color: '#1a73e8', fontWeight: 900 }}>{current + 1}. </span>
+                <span style={{ color: '#0d9488', fontWeight: 900 }}>{current + 1}. </span>
                 {q.q}
               </p>
             </div>
@@ -462,8 +462,8 @@ const QuizModule = ({ lang }) => {
                     }}>
                     <span style={{
                       width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-                      background: isAnswered ? (correct ? '#10b981' : selected ? '#ef4444' : '#e5e7eb') : '#e8f0fe',
-                      color: isAnswered ? (correct || selected ? '#fff' : '#9ca3af') : '#1a73e8',
+                      background: isAnswered ? (correct ? '#10b981' : selected ? '#ef4444' : '#e5e7eb') : '#f0fdfa',
+                      color: isAnswered ? (correct || selected ? '#fff' : '#9ca3af') : '#0d9488',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 11, fontWeight: 900,
                     }}>
@@ -497,10 +497,10 @@ const QuizModule = ({ lang }) => {
               <button onClick={goNext}
                 style={{
                   marginTop: 14, width: '100%',
-                  background: '#1a73e8', color: '#fff', border: 'none',
+                  background: '#0d9488', color: '#fff', border: 'none',
                   borderRadius: 18, padding: '14px 0',
                   fontSize: 14, fontWeight: 900, cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(26,115,232,0.35)',
+                  boxShadow: '0 4px 14px rgba(13,148,136,0.35)',
                 }}>
                 {current < totalQ - 1 ? (isSw ? `Swali Linalofuata →` : `Next Question →`) : (isSw ? '🏁 Angalia Matokeo' : '🏁 See Results')}
               </button>
@@ -519,7 +519,7 @@ const QuizModule = ({ lang }) => {
             textAlign: 'center', position: 'relative', overflow: 'hidden',
           }}>
             <div style={{ position: 'absolute', top: -30, right: -30, width: 130, height: 130, borderRadius: '50%', background: grade.color + '22' }} />
-            <div style={{ position: 'absolute', bottom: -20, left: -20, width: 80, height: 80, borderRadius: '50%', background: '#1a73e820' }} />
+            <div style={{ position: 'absolute', bottom: -20, left: -20, width: 80, height: 80, borderRadius: '50%', background: '#0d948820' }} />
             <div style={{ position: 'relative' }}>
               <div style={{ fontSize: 12, color: '#64748b', fontWeight: 900, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>
                 {isSw ? 'Matokeo Yako' : 'Your Score'}
@@ -571,9 +571,9 @@ const QuizModule = ({ lang }) => {
           {/* Retry */}
           <button onClick={() => { setAnswers({}); setCurrent(0); setPhase('intro'); setStreak(0); }}
             style={{
-              width: '100%', background: '#1a73e8', color: '#fff', border: 'none',
+              width: '100%', background: '#0d9488', color: '#fff', border: 'none',
               borderRadius: 20, padding: '15px 0', fontSize: 14, fontWeight: 900, cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(26,115,232,0.35)',
+              boxShadow: '0 4px 14px rgba(13,148,136,0.35)',
             }}>
             🔄 {isSw ? 'Jaribu Tena' : 'Try Again'}
           </button>

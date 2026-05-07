@@ -1,20 +1,34 @@
 import { useState, useEffect } from "react";
 import { PDFDocument } from "pdf-lib";
+import { useNavigate } from "react-router-dom";
 import { useGuidedFlow } from "../../context/GuidedFlowContext";
 import { useT } from "../../i18n/useT";
 
+// Msaada: Badilisha bytes kuwa MB/KB kwa uwasilishaji rahisi
+function formatSize(bytes) {
+  if (bytes >= 1024 * 1024) {
+    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+  }
+  return (bytes / 1024).toFixed(1) + " KB";
+}
+
 export default function CompressPdf() {
   const [file, setFile] = useState(null);
+  const [originalSize, setOriginalSize] = useState(null);
+  const [compressedSize, setCompressedSize] = useState(null);
   const [compressedUrl, setCompressedUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const { markToolComplete } = useGuidedFlow();
   const { t } = useT();
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0];
     setFile(selected);
     setCompressedUrl(null);
+    setOriginalSize(selected ? selected.size : null);
+    setCompressedSize(null);
   };
 
   const compressPDF = async () => {
@@ -29,6 +43,9 @@ export default function CompressPdf() {
       const compressedBytes = await pdfDoc.save({
         useObjectStreams: true,
       });
+
+      // ✅ IMEONGEZWA: Hifadhi ukubwa wa file baada ya compression
+      setCompressedSize(compressedBytes.byteLength);
 
       const blob = new Blob([compressedBytes], {
         type: "application/pdf",
@@ -54,8 +71,25 @@ export default function CompressPdf() {
     };
   }, [compressedUrl]);
 
+  // ✅ IMEONGEZWA: Hesabu tofauti ya ukubwa
+  const savedBytes = originalSize && compressedSize
+    ? originalSize - compressedSize
+    : 0;
+  const savedPercent = originalSize && compressedSize
+    ? Math.round((savedBytes / originalSize) * 100)
+    : 0;
+
   return (
     <div className="space-y-10 sm:space-y-12">
+
+      {/* ✅ IMEONGEZWA: Back button */}
+      <button
+        onClick={() => navigate("/tools")}
+        className="text-sm font-medium text-teal-600 hover:text-teal-700 transition cursor-pointer flex items-center gap-1"
+      >
+        ← {t("common.backToTools")}
+      </button>
+
       <div>
         <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
           {t("compressPdf.title")}
@@ -64,6 +98,11 @@ export default function CompressPdf() {
         <p className="text-slate-600 mt-2 leading-relaxed text-sm sm:text-base">
           {t("compressPdf.subtitle")}
         </p>
+      </div>
+
+      {/* ✅ IMEONGEZWA: Disclaimer ya ukweli kuhusu compression */}
+      <div className="bg-amber-50 border border-amber-100 rounded-2xl px-5 py-4 text-sm text-amber-700">
+        ⚠️ {t("compressPdf.disclaimer")}
       </div>
 
       <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm space-y-3">
@@ -98,6 +137,9 @@ export default function CompressPdf() {
         {file && (
           <p className="text-sm text-slate-600">
             {t("compressPdf.selectedFile")} {file.name}
+            <span className="ml-2 text-slate-400">
+              ({formatSize(file.size)})
+            </span>
           </p>
         )}
 
@@ -121,6 +163,30 @@ export default function CompressPdf() {
           <h3 className="font-semibold text-slate-700">
             {t("compressPdf.successTitle")}
           </h3>
+
+          {/* ✅ IMEONGEZWA: Before/After size display */}
+          <div className="grid grid-cols-3 gap-3 text-center text-sm">
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
+              <p className="text-slate-400 text-xs mb-1">{t("compressPdf.before")}</p>
+              <p className="font-bold text-slate-700">{formatSize(originalSize)}</p>
+            </div>
+            <div className="flex items-center justify-center text-slate-300 text-xl">→</div>
+            <div className="bg-green-50 border border-green-100 rounded-xl p-3">
+              <p className="text-green-500 text-xs mb-1">{t("compressPdf.after")}</p>
+              <p className="font-bold text-green-700">{formatSize(compressedSize)}</p>
+            </div>
+          </div>
+
+          {/* Tofauti ya ukubwa */}
+          {savedBytes > 0 ? (
+            <p className="text-sm text-green-600 font-semibold">
+              ✅ {t("compressPdf.saved")} {formatSize(savedBytes)} ({savedPercent}%)
+            </p>
+          ) : (
+            <p className="text-sm text-slate-500">
+              ℹ️ {t("compressPdf.noChange")}
+            </p>
+          )}
 
           <a
             href={compressedUrl}

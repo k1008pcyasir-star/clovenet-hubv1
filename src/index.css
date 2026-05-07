@@ -14,11 +14,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth UI */
-* {
-  transition: all 0.2s ease;
-}
-
 /* Cards */
 .email-card {
   background: white;
@@ -26,6 +21,7 @@ body {
   box-shadow: 0 10px 35px rgba(26, 115, 232, 0.06);
   border-radius: 24px;
   overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .email-card:hover {
@@ -42,6 +38,7 @@ body {
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 10px 25px rgba(26, 115, 232, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-next:hover {
@@ -60,6 +57,7 @@ textarea {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 0.7rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus,

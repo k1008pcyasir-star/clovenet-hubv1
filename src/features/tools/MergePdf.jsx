@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { PDFDocument } from "pdf-lib";
+import { useNavigate } from "react-router-dom";
 import { useGuidedFlow } from "../../context/GuidedFlowContext";
 import { useT } from "../../i18n/useT";
 
@@ -10,6 +11,7 @@ export default function MergePdf() {
 
   const { markToolComplete } = useGuidedFlow();
   const { t } = useT();
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
@@ -65,6 +67,15 @@ export default function MergePdf() {
 
   return (
     <div className="space-y-10 sm:space-y-12">
+
+      {/* ✅ IMEONGEZWA: Back button */}
+      <button
+        onClick={() => navigate("/tools")}
+        className="text-sm font-medium text-teal-600 hover:text-teal-700 transition cursor-pointer flex items-center gap-1"
+      >
+        ← {t("common.backToTools")}
+      </button>
+
       <div>
         <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
           {t("mergePdf.title")}

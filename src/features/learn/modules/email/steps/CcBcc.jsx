@@ -304,7 +304,7 @@ const Quiz = ({ isSw }) => {
 
               if (submitted && correct) style = 'bg-green-100 text-green-700 border-green-400';
               else if (submitted && chosen && !correct) style = 'bg-red-100 text-red-700 border-red-300';
-              else if (chosen) style = 'bg-[#1a73e8] text-white border-[#1a73e8]';
+              else if (chosen) style = 'bg-teal-600 text-white border-teal-600';
 
               return (
                 <button
@@ -343,7 +343,7 @@ const Quiz = ({ isSw }) => {
         <button
           onClick={() => setSubmitted(true)}
           disabled={Object.keys(answers).length < questions.length}
-          className="w-full py-3 rounded-2xl font-black text-sm bg-[#1a73e8] text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors shadow-lg"
+          className="w-full py-3 rounded-2xl font-black text-sm bg-teal-600 text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-teal-700 transition-colors shadow-lg"
         >
           {isSw ? '📝 Angalia Majibu' : '📝 Check Answers'}
         </button>
@@ -523,7 +523,7 @@ const CcBcc = ({ lang }) => {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000 space-y-8 sm:space-y-10">
       {/* Heading */}
       <div className="space-y-2">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#1a73e8] leading-tight">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-teal-700 leading-tight">
           {isSw ? 'CC na BCC ni nini?' : 'What are CC and BCC?'}
         </h2>
         <p className="text-slate-500 font-medium italic text-xs sm:text-sm">
@@ -562,7 +562,7 @@ const CcBcc = ({ lang }) => {
         <div className="p-5 sm:p-6 bg-slate-900 rounded-[24px] sm:rounded-[32px] border-2 border-slate-800 space-y-3 shadow-xl">
           <div className="flex items-center gap-3">
             <span className="text-2xl">🔒</span>
-            <h4 className="font-black text-blue-400 uppercase text-[10px] sm:text-xs tracking-widest">
+            <h4 className="font-black text-teal-400 uppercase text-[10px] sm:text-xs tracking-widest">
               BCC — Blind Carbon Copy
             </h4>
           </div>
@@ -784,14 +784,14 @@ const CcBcc = ({ lang }) => {
       </div>
 
       {/* Summary */}
-      <div className="p-5 sm:p-6 bg-gradient-to-br from-blue-600 to-blue-800 rounded-[24px] sm:rounded-[28px] text-white shadow-lg relative overflow-hidden">
+      <div className="p-5 sm:p-6 bg-gradient-to-br from-teal-600 to-teal-800 rounded-[24px] sm:rounded-[28px] text-white shadow-lg relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }}
         />
         <div className="relative z-10 space-y-3">
           <h4 className="font-black text-base sm:text-lg">{isSw ? '✅ Unachohitaji Kukumbuka' : '✅ Key Takeaways'}</h4>
-          <ul className="space-y-2 text-blue-100 text-sm">
+          <ul className="space-y-2 text-teal-100 text-sm">
             {(isSw
               ? [
                   'CC = Nakala Wazi — mpokeaji mkuu anaona majina yote kwenye CC',
@@ -809,7 +809,7 @@ const CcBcc = ({ lang }) => {
                 ]
             ).map((item, i) => (
               <li key={i} className="flex items-start gap-2">
-                <span className="text-blue-300 font-black mt-0.5">→</span>
+                <span className="text-teal-300 font-black mt-0.5">→</span>
                 <span className="leading-relaxed">{item}</span>
               </li>
             ))}

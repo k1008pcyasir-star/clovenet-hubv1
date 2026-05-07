@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
+import { useNavigate } from "react-router-dom";
 import { useGuidedFlow } from "../../context/GuidedFlowContext";
 import { useT } from "../../i18n/useT";
 
@@ -10,11 +11,47 @@ export default function PdfConverter() {
 
   const { markToolComplete } = useGuidedFlow();
   const { t } = useT();
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const selected = Array.from(e.target.files);
     setFiles(selected);
     setPdfUrl(null);
+  };
+
+  const convertToJpegBytes = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const img = new Image();
+
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+
+          canvas.toBlob(
+            (blob) => {
+              blob.arrayBuffer().then(resolve).catch(reject);
+            },
+            "image/jpeg",
+            0.92
+          );
+        };
+
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   };
 
   const generatePDF = async () => {
@@ -26,14 +63,8 @@ export default function PdfConverter() {
       const pdfDoc = await PDFDocument.create();
 
       for (const file of files) {
-        const imageBytes = await file.arrayBuffer();
-        let image;
-
-        if (file.type === "image/png") {
-          image = await pdfDoc.embedPng(imageBytes);
-        } else {
-          image = await pdfDoc.embedJpg(imageBytes);
-        }
+        const jpegBytes = await convertToJpegBytes(file);
+        const image = await pdfDoc.embedJpg(jpegBytes);
 
         const page = pdfDoc.addPage([image.width, image.height]);
 
@@ -65,6 +96,15 @@ export default function PdfConverter() {
 
   return (
     <div className="space-y-10 sm:space-y-12">
+
+      {/* ✅ IMEONGEZWA: Back button */}
+      <button
+        onClick={() => navigate("/tools")}
+        className="text-sm font-medium text-teal-600 hover:text-teal-700 transition cursor-pointer flex items-center gap-1"
+      >
+        ← {t("common.backToTools")}
+      </button>
+
       <div>
         <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
           {t("pdfConverter.title")}
@@ -91,7 +131,7 @@ export default function PdfConverter() {
       <div className="border border-slate-200 rounded-2xl p-6 space-y-6 bg-white">
         <input
           type="file"
-          accept="image/png, image/jpeg"
+          accept="image/png, image/jpeg, image/webp"
           multiple
           id="imageUpload"
           onChange={handleFileChange}

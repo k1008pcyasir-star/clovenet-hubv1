@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGuidedFlow } from "../../context/GuidedFlowContext";
 import { useT } from "../../i18n/useT";
 
@@ -9,6 +10,7 @@ export default function ResizePhoto() {
 
   const { markToolComplete } = useGuidedFlow();
   const { t } = useT();
+  const navigate = useNavigate();
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -61,6 +63,15 @@ export default function ResizePhoto() {
 
   return (
     <div className="space-y-10 sm:space-y-12">
+
+      {/* ✅ IMEONGEZWA: Back button */}
+      <button
+        onClick={() => navigate("/tools")}
+        className="text-sm font-medium text-teal-600 hover:text-teal-700 transition cursor-pointer flex items-center gap-1"
+      >
+        ← {t("common.backToTools")}
+      </button>
+
       <div>
         <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
           {t("resizePhoto.title")}
@@ -69,6 +80,11 @@ export default function ResizePhoto() {
         <p className="text-slate-600 mt-2 leading-relaxed text-sm sm:text-base">
           {t("resizePhoto.subtitle")}
         </p>
+      </div>
+
+      {/* ✅ IMEONGEZWA: Maelezo ya ukubwa wa picha itakayotokea */}
+      <div className="bg-blue-50 border border-blue-100 rounded-2xl px-5 py-4 text-sm text-blue-700">
+        ℹ️ {t("resizePhoto.sizeNote")}
       </div>
 
       <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm space-y-3">
@@ -118,6 +134,8 @@ export default function ResizePhoto() {
               alt={t("resizePhoto.alt")}
               className="rounded-xl w-48 h-48 object-cover border border-slate-200"
             />
+
+            <p className="text-xs text-slate-400">600 × 600 px — JPEG</p>
           </div>
 
           <a

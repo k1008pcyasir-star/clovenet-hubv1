@@ -291,30 +291,25 @@ const AnatomyCard = ({ email, formal, reasons, isSw }) => {
 
 /* ── Scenario Table Row ── */
 const ScenarioRow = ({ icon, label, formal, informal }) => (
-  <div className="grid grid-cols-[1fr_56px_1fr] items-center gap-1 py-3 border-b border-slate-100 last:border-0 text-xs">
-    <div
-      className={`flex items-center justify-end gap-1.5 font-semibold ${
-        formal.ok ? "text-green-700" : "text-red-500"
-      }`}
-    >
-      <span className="text-right leading-tight">{formal.label}</span>
-      {formal.ok ? <CheckCircle /> : <XCircle />}
-    </div>
-
-    <div className="flex flex-col items-center gap-0.5 px-1">
+  <div className="flex items-center gap-2 py-3 border-b border-slate-100 last:border-0 text-xs">
+    {/* Center — icon + label */}
+    <div className="flex flex-col items-center gap-0.5 w-12 shrink-0">
       <span className="text-lg sm:text-xl">{icon}</span>
       <span className="text-slate-400 font-bold text-center leading-tight text-[9px] sm:text-[10px]">
         {label}
       </span>
     </div>
 
-    <div
-      className={`flex items-center gap-1.5 font-semibold ${
-        informal.ok ? "text-green-700" : "text-red-500"
-      }`}
-    >
+    {/* Formal */}
+    <div className={`flex items-center gap-1 font-semibold flex-1 min-w-0 ${formal.ok ? "text-green-700" : "text-red-500"}`}>
+      {formal.ok ? <CheckCircle /> : <XCircle />}
+      <span className="leading-tight break-words">{formal.label}</span>
+    </div>
+
+    {/* Informal */}
+    <div className={`flex items-center gap-1 font-semibold flex-1 min-w-0 ${informal.ok ? "text-green-700" : "text-red-500"}`}>
       {informal.ok ? <CheckCircle /> : <XCircle />}
-      <span className="leading-tight">{informal.label}</span>
+      <span className="leading-tight break-words">{informal.label}</span>
     </div>
   </div>
 );
