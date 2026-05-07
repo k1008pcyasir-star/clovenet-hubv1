@@ -1,9 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import { useT } from "../../../i18n/useT";
 import { useLanguage } from "../../../context/LanguageContext";
 
 export default function PracticeEngine({ questions = [] }) {
-  const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showGuide, setShowGuide] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
@@ -11,47 +10,44 @@ export default function PracticeEngine({ questions = [] }) {
   const { t } = useT();
   const { language } = useLanguage();
 
-  const categories = useMemo(() => {
-    const unique = new Set();
-    questions.forEach((q) => {
-      if (q.cat) unique.add(q.cat);
-    });
-    return ["ALL", ...Array.from(unique)];
-  }, [questions]);
-
-  const filteredQuestions = useMemo(() => {
-    if (selectedCategory === "ALL") return questions;
-    return questions.filter((q) => q.cat === selectedCategory);
-  }, [questions, selectedCategory]);
-
-  useEffect(() => {
-    setCurrentIndex(0);
-    setShowGuide(false);
-    setShowAnswer(false);
-  }, [selectedCategory, questions]);
+  const filteredQuestions = questions;
 
   if (!filteredQuestions || filteredQuestions.length === 0) return null;
 
   const currentQuestion = filteredQuestions[currentIndex];
   const total = filteredQuestions.length;
 
-  // ✅ Tumia lugha ya sasa kuchagua maandishi ya swali
+  // Question text
   const questionText =
     language === "sw"
-      ? currentQuestion.question_sw || currentQuestion.swali_sw || currentQuestion.question || ""
-      : currentQuestion.question_en || currentQuestion.swali_en || currentQuestion.question_sw || currentQuestion.question || "";
+      ? currentQuestion.question_sw ||
+        currentQuestion.swali_sw ||
+        currentQuestion.question ||
+        ""
+      : currentQuestion.question_en ||
+        currentQuestion.swali_en ||
+        currentQuestion.question_sw ||
+        currentQuestion.question ||
+        "";
 
-  // Swali la pili linaonyeshwa chini kama tafsiri — SW inaonyesha EN, EN haionyeshi tena
+  // Translation subtext
   const subText =
     language === "sw"
-      ? currentQuestion.question_en || currentQuestion.swali_en || null
+      ? currentQuestion.question_en ||
+        currentQuestion.swali_en ||
+        null
       : null;
 
   const guideText =
-    currentQuestion.guide || currentQuestion.muongozo || null;
+    currentQuestion.guide ||
+    currentQuestion.muongozo ||
+    null;
 
   const answerText =
-    currentQuestion.sample_answer || currentQuestion.jibu_en || currentQuestion.answer || null;
+    currentQuestion.sample_answer ||
+    currentQuestion.jibu_en ||
+    currentQuestion.answer ||
+    null;
 
   const progress = Math.round(((currentIndex + 1) / total) * 100);
 
@@ -60,7 +56,6 @@ export default function PracticeEngine({ questions = [] }) {
       setCurrentIndex((prev) => prev + 1);
       setShowGuide(false);
       setShowAnswer(false);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -69,47 +64,25 @@ export default function PracticeEngine({ questions = [] }) {
       setCurrentIndex((prev) => prev - 1);
       setShowGuide(false);
       setShowAnswer(false);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   return (
     <div className="space-y-8 sm:space-y-10">
 
-      {/* Filter */}
-      {categories.length > 1 && (
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-slate-600">
-            {t("practiceEngine.filterLabel")}
-          </p>
-          <div className="flex flex-wrap gap-2 sm:gap-3">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium border transition cursor-pointer active:scale-[0.98] ${
-                  selectedCategory === cat
-                    ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
-                    : "bg-white text-slate-600 border-slate-300 hover:bg-slate-100"
-                }`}
-              >
-                {cat === "ALL" ? t("practiceEngine.all") : cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Progress */}
       <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm text-slate-500">
           <span className="font-medium">
-            {t("practiceEngine.question")} {currentIndex + 1} {t("practiceEngine.of")} {total}
+            {t("practiceEngine.question")} {currentIndex + 1}{" "}
+            {t("practiceEngine.of")} {total}
           </span>
+
           <span className="font-semibold text-emerald-700">
             {progress}% {t("practiceEngine.complete")}
           </span>
         </div>
+
         <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-emerald-600 rounded-full transition-all duration-300"
@@ -120,16 +93,20 @@ export default function PracticeEngine({ questions = [] }) {
 
       {/* Question Card */}
       <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-5 sm:p-7 lg:p-10 shadow-sm space-y-6">
+
+        {/* Category Badge */}
         {currentQuestion.cat && (
           <span className="inline-block px-4 py-1.5 text-xs font-semibold bg-emerald-100 text-emerald-700 rounded-full">
             {currentQuestion.cat}
           </span>
         )}
 
+        {/* Question */}
         <div className="space-y-4">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 leading-relaxed">
             {questionText}
           </h2>
+
           {subText && (
             <div className="border-l-4 border-slate-200 pl-4">
               <p className="text-slate-500 italic text-sm sm:text-base leading-relaxed">
@@ -139,7 +116,7 @@ export default function PracticeEngine({ questions = [] }) {
           )}
         </div>
 
-        {/* Guide */}
+        {/* Guide Button */}
         {guideText && !showGuide && (
           <div>
             <button
@@ -151,15 +128,19 @@ export default function PracticeEngine({ questions = [] }) {
           </div>
         )}
 
+        {/* Guide Section */}
         {guideText && showGuide && (
           <div className="bg-emerald-50 border border-emerald-200 p-5 sm:p-6 rounded-2xl space-y-4">
+
             <h4 className="font-semibold text-emerald-700 text-base sm:text-lg">
               {t("practiceEngine.guideTitle")}
             </h4>
+
             <p className="text-slate-700 leading-relaxed text-sm sm:text-base">
               {guideText}
             </p>
 
+            {/* Show Answer Button */}
             {answerText && !showAnswer && (
               <button
                 onClick={() => setShowAnswer(true)}
@@ -169,14 +150,18 @@ export default function PracticeEngine({ questions = [] }) {
               </button>
             )}
 
+            {/* Answer Section */}
             {answerText && showAnswer && (
               <div className="bg-white border border-slate-200 p-5 sm:p-6 rounded-2xl space-y-3">
+
                 <h4 className="font-semibold text-slate-800 text-base sm:text-lg">
                   {t("practiceEngine.answerTitle")}
                 </h4>
+
                 <p className="text-slate-700 italic leading-relaxed text-sm sm:text-base">
                   {answerText}
                 </p>
+
               </div>
             )}
           </div>
@@ -185,6 +170,7 @@ export default function PracticeEngine({ questions = [] }) {
 
       {/* Navigation */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+
         <button
           onClick={goPrev}
           disabled={currentIndex === 0}
@@ -204,6 +190,7 @@ export default function PracticeEngine({ questions = [] }) {
         >
           {t("practiceEngine.next")}
         </button>
+
       </div>
     </div>
   );
