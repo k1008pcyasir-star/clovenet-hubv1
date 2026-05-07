@@ -1,13 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EmailContent from "./EmailContent";
 
 const EmailGuide = () => {
-  const [step, setStep]   = useState(1);
-  const [lang, setLang]   = useState("sw");
-  const totalSteps        = 12;
-  const navigate          = useNavigate();
-  const isSw              = lang === "sw";
+  // ── Tatizo 1: Hifadhi step kwenye sessionStorage ili refresh isirudi step 1
+  const [step, setStep] = useState(() => {
+    const saved = sessionStorage.getItem("emailGuideStep");
+    return saved ? parseInt(saved, 10) : 1;
+  });
+
+  const [lang, setLang] = useState(() => {
+    return sessionStorage.getItem("emailGuideLang") || "sw";
+  });
+
+  const totalSteps = 12;
+  const navigate   = useNavigate();
+  const isSw       = lang === "sw";
+
+  // Hifadhi step na lang kila zinapobadilika
+  useEffect(() => {
+    sessionStorage.setItem("emailGuideStep", step);
+  }, [step]);
+
+  useEffect(() => {
+    sessionStorage.setItem("emailGuideLang", lang);
+  }, [lang]);
+
+  // ── Tatizo 2: Scroll juu kila step inabadilika
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
+
+  // Futa sessionStorage mtu akiondoka kwenye email guide kabisa
+  const handleBackToLearn = () => {
+    sessionStorage.removeItem("emailGuideStep");
+    sessionStorage.removeItem("emailGuideLang");
+    navigate("/learn");
+  };
 
   // Progress percentage (excluding dashboard step 1)
   const progress = step > 1 ? Math.round(((step - 1) / (totalSteps - 1)) * 100) : 0;
@@ -104,7 +133,7 @@ const EmailGuide = () => {
       {step === 1 && (
         <div className="mt-6 text-center">
           <button
-            onClick={() => navigate("/learn")}
+            onClick={handleBackToLearn}
             className="text-sm font-medium text-slate-400 hover:text-teal-600 transition cursor-pointer"
           >
             ← {isSw ? "Rudi kwenye Mafunzo" : "Back to Learning"}
