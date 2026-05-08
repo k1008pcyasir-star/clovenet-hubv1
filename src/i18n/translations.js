@@ -332,6 +332,10 @@ export const translations = {
       emailDesc:
         "Learn how to create a professional email, attach documents and send job applications.",
 
+      safetyTitle: "Digital Safety",
+      safetyDesc:
+       "Learn how to stay safe online, avoid scams, secure accounts and protect your digital identity.",
+
       cvTitle: "CV Writing",
       cvDesc:
         "Learn how to write a modern CV for job applications and scholarships.",
@@ -679,6 +683,10 @@ export const translations = {
       emailTitle: "Professional Email",
       emailDesc:
         "Jifunze jinsi ya kutengeneza email ya kitaalamu, kuambatisha nyaraka na kutuma maombi ya kazi.",
+
+      safetyTitle: "Usalama wa Kidijitali",
+      safetyDesc:
+        "Jifunze jinsi ya kuwa salama mtandaoni, kuepuka utapeli, kulinda account na utambulisho wako wa kidijitali.",
 
       cvTitle: "CV Writing",
       cvDesc:
