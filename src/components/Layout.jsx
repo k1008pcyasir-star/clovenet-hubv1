@@ -289,8 +289,8 @@ export default function Layout({
                 {t("layout.contact")}
               </h3>
               <div className="space-y-1.5">
-                <p className="text-slate-400 text-sm">yasirhamdu@hotmail.com</p>
-                <p className="text-slate-400 text-sm">+255 776 378 529</p>
+                <p className="text-slate-400 text-sm">support@clovenet.net</p>
+                
               </div>
             </div>
 
